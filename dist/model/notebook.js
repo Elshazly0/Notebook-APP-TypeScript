@@ -49,5 +49,5 @@ const NotebooSchema = new mongoose.Schema({
         type: String,
     },
 });
-const Todo = mongoose.model("Notebook", NotebooSchema);
-exports.default = Todo;
+const Notebook = mongoose.model("Notebook", NotebooSchema);
+exports.default = Notebook;

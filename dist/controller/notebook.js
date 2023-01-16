@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteNotebook = exports.updateNotebook = exports.getNotebook = exports.createNotebook = void 0;
+exports.deleteNotebook = exports.updateNotebook = exports.getNotebookSorted = exports.getNotebook = exports.createNotebook = void 0;
 const notebook_1 = __importDefault(require("../model/notebook"));
 const createNotebook = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -42,6 +42,26 @@ const getNotebook = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.getNotebook = getNotebook;
+const getNotebookSorted = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        var notebooks = yield notebook_1.default.find({});
+        function sortByKey(array, key) {
+            return array.sort(function (a, b) {
+                var x = a[key];
+                var y = b[key];
+                return x < y ? -1 : x > y ? 1 : 0;
+            });
+        }
+        var values = sortByKey(notebooks, id);
+        console.log(values);
+        return res.status(200).json({ message: "All notebooks!", data: values });
+    }
+    catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+});
+exports.getNotebookSorted = getNotebookSorted;
 const updateNotebook = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;

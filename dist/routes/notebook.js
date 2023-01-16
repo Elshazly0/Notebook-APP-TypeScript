@@ -10,6 +10,7 @@ const multer_2 = __importDefault(require("multer"));
 const router = (0, express_1.Router)();
 router.post("/", (0, multer_2.default)(multer_1.multerConfig).single("image"), notebook_1.createNotebook);
 router.get("/", notebook_1.getNotebook);
+router.get("/sorted/:id", notebook_1.getNotebookSorted);
 router.patch("/:id", notebook_1.updateNotebook);
 router.delete("/:id", notebook_1.deleteNotebook);
 exports.default = router;

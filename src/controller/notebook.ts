@@ -31,7 +31,7 @@ export const getNotebook: RequestHandler = async (req, res, next) => {
 
 export const getNotebookSorted: RequestHandler = async (req, res, next) => {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
     var notebooks = await Notebook.find({});
 
     function sortByKey(array: any[], key: string | number) {
@@ -41,9 +41,9 @@ export const getNotebookSorted: RequestHandler = async (req, res, next) => {
         return x < y ? -1 : x > y ? 1 : 0;
       });
     }
-    return res
-      .status(200)
-      .json({ message: "All notebooks!", data: sortByKey(notebooks, id) });
+    var values = sortByKey(notebooks, id);
+    console.log(values);
+    return res.status(200).json({ message: "All notebooks!", data: values });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }
